@@ -24,11 +24,21 @@ module.exports = {
       }
     })
   ],
+  devServer:{
+    port:8000,
+    inline:true,
+    historyApiFallback:true
+  },
   module: {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
-    }]
+    },
+    {
+    test: /\.css$/,
+    loaders: ['file-loader','style-loader','file-loader']
+    }
+  ]
   }
 };

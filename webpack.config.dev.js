@@ -21,11 +21,26 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+  devServer:{
+    port:8000,
+    inline:true,
+    historyApiFallback:true
+  },
   module: {
-    loaders: [{
+    loaders: [
+      {
       test: /\.js$/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
-    }]
+      },
+      {
+      test: /\.css$/,
+      loaders: ['style-loader','css-loader']
+      },
+      {
+      test: /\.(jpe?g|png)$/,
+      loaders: ['file-loader']
+      }
+    ]
   }
 };
