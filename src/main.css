@@ -3,3 +3,56 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.lunbo{
+  position: relative;
+}
+.lunbo>ul>li{
+  width: 790px;
+  float: left;
+  list-style: none;
+}
+.content span{
+  cursor: pointer;
+  display: block;
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-left: 3px;
+  text-align: center;
+  background-color: rgba(0,0,0,0.4);
+  text-decoration: none;
+  color:#fff;
+  border-radius: 50%;
+}
+.a{
+  position: absolute;
+  left:343px;
+  bottom:5px;
+}
+.add{
+  margin-left: 100px;
+  margin-top: 50px;
+}
+.span-id{
+  margin-right: 30px;
+}
+.btn{
+  position: absolute;
+  width: 40px;
+  height: 50vh;
+  line-height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  font-size: 20px;
+  top:0;
+  border: none;
+  color:#fff;
+  cursor: pointer;
+  border: none;
+}
+.btn-next{
+  right:0;
+}
+.btn-prev{
+  left:0;
+}

@@ -21,20 +21,32 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 import Button from 'react-bootstrap/lib/Button';
 import axios from 'axios'
-
+import IconMenu from 'material-ui/IconMenu';
+import FileFileDownload from 'material-ui/svg-icons/file/file-download';
+import Snackbar from 'material-ui/Snackbar';
+import AccountCircle from 'material-ui/svg-icons/action/account-circle';
+import {Link} from 'react-router'
 
  class Header extends React.Component{
    constructor(){
      super();
      this.state = {
-      open: false,
+      open: false,      //登录注册表单的开关
       dl:false,
       zc:false,
-      username:'',
-      password:'',
-      name:'',
-      action:'signin'
+      username:'',　　　//表单用户名的value
+      password:'',      //表单密码的value
+      user:'',          //登录后后台返回的用户名
+      action:'signin', //登录注册表单的选项
+      userId:'',　　　　　//登录后后台返回的id
+      openMenu:false,
+      snackbar:false
     };
+   }
+   componentWillMount(){
+     if(localStorage.user && localStorage.userId){
+       this.setState({user:localStorage.user,userId:localStorage.userId})
+     }
    }
    handleTouchTap() {
     alert('onTouchTap triggered on the title component');
@@ -81,9 +93,11 @@ import axios from 'axios'
     axios.post(`http://api.duopingshidai.com/user/${this.state.action}`,data)
     .then(res=>{
       if(res.data.userId){
-        this.setState({zc:false})
+        this.setState({zc:false,openMenu:false})
       }
-      this.setState({name:res.data.user})
+      this.setState({user:res.data.user,userId:res.data.userId})
+      localStorage.setItem('user',res.data.user);
+      localStorage.setItem('userId',res.data.userId);
       if(res.data.user){
         this.setState({dl:false})
       }
@@ -95,6 +109,22 @@ import axios from 'axios'
         console.log('Error',err)
       }
     })
+  }
+  handleOnRequestChange(value){
+    this.setState({
+      openMenu: value
+    });
+  }
+  handleMenuItem(e,child){
+    if(child.props.value==='3') this.logout();
+  }
+  logout(){
+    this.setState({user:'',userId:'',snackbar:true})
+    localStorage.user='';
+    localStorage.userId='';
+  }
+  componentWillMount(){
+    // axios.request('http://api.duopingshidai.com/shopping/add',method:'post',h)
   }
   render() {
     const styles = {
@@ -116,15 +146,35 @@ import axios from 'axios'
       />,
     ];
     return (
-      <div>
+      <div className='header'>
         <AppBar
-          title={<span style={styles.title}>首页</span>}
-          iconElementLeft={<IconButton><ActionHome /></IconButton>}
+          title={<span style={styles.title}>Tiger Shopping</span>}
+          iconElementLeft={<IconButton><Link to='/'><ActionHome /></Link></IconButton>}
           iconElementRight={
-            <FlatButton
-              onTouchTap={this.handleTouchTap.bind(this)}
-              label={this.state.name?this.state.name:'登录/注册'}
-            />
+
+              this.state.user?
+                  <IconMenu
+                      iconButtonElement={<IconButton tooltip={this.state.user}><AccountCircle /></IconButton>}
+                      open={this.state.openMenu}
+                      onRequestChange={this.handleOnRequestChange.bind(this)}
+                      onItemTouchTap={this.handleMenuItem.bind(this)}
+                      anchorOrigin={{horizontal:'right',vertical:'bottom'}}
+                      targetOrigin={{horizontal:'right',vertical:'top'}}
+                    >
+                      <MenuItem value="1" primaryText={this.state.user} />
+                      <Link to='pay'><MenuItem value="2" primaryText="个人中心" /></Link>
+                      <Link to='add'><MenuItem value="2" primaryText="管理员操作" /></Link>
+                      <MenuItem value="3" primaryText="退出" />
+                    </IconMenu>
+
+                :
+                <FlatButton
+                onTouchTap={this.handleTouchTap.bind(this)}
+                label='登录/注册'
+
+              />
+
+
           }
         />
         <Popover
@@ -166,7 +216,7 @@ import axios from 'axios'
             <FormGroup>
               <Col smOffset={2} sm={5}>
                 <Button type="submit">
-                  SignIn
+                  Sign In
                 </Button>
               </Col>
             </FormGroup>
@@ -199,12 +249,19 @@ import axios from 'axios'
             <FormGroup>
               <Col smOffset={2} sm={5}>
                 <Button type="submit">
-                  Sign up
+                  Sign Up
                 </Button>
               </Col>
             </FormGroup>
           </Form>
         </Dialog>
+        <Snackbar
+         open={this.state.snackbar}
+         message="退出成功"
+         autoHideDuration={2000}
+         onRequestClose={()=>this.setState({snackbar:false})}
+         bodyStyle={{textAlign:'center'}}
+       />
       </div>
     );
   }

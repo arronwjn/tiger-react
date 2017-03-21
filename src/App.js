@@ -1,8 +1,10 @@
 import React from 'react';
 import $ from 'jquery';
 import Home from './components/Home';
+import Add from './components/add';
+import Pay from './components/pay';
 import Index from './components/IndexRoute';
-import {Router,Route,browserHistory,Redirect,IndexRoute} from 'react-router';
+import {Router,Route,browserHistory,Redirect,IndexRoute,Link} from 'react-router';
 
 
  class App extends React.Component{
@@ -12,6 +14,8 @@ import {Router,Route,browserHistory,Redirect,IndexRoute} from 'react-router';
         <Router history={browserHistory}>
           <Route path='/' component={Home}>
             <IndexRoute component={Index}/>
+            <Route path='/add' component={Add}/>
+            <Route path='/pay' component={Pay}/>
           </Route>
         </Router>
       </div>
