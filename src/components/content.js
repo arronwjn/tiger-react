@@ -63,8 +63,8 @@ import Img4 from '../images/lunbo-4.jpg';
             <li><img src={Img3}/></li>
             <li><img src={Img4}/></li>
           </ul>
-          <button className='btn btn-prev' >&lt;</button>
-          <button className='btn btn-next' >&gt;</button>
+          <button className='btns btn-prev' >&lt;</button>
+          <button className='btns btn-next' >&gt;</button>
           <div className='a'>
             <span onClick={this.handleClick.bind(this,0)} style={{backgroundColor:this.state.start==0?'red':'rgba(0,0,0,0.4)'}}></span>
             <span onClick={this.handleClick.bind(this,1)} style={{backgroundColor:this.state.start==1?'red':'rgba(0,0,0,0.4)'}}></span>
