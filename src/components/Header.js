@@ -43,11 +43,7 @@ import {Link} from 'react-router'
       snackbar:false
     };
    }
-   componentWillMount(){
-     if(localStorage.user && localStorage.userId){
-       this.setState({user:localStorage.user,userId:localStorage.userId})
-     }
-   }
+
    handleTouchTap() {
     alert('onTouchTap triggered on the title component');
   }
@@ -124,9 +120,12 @@ import {Link} from 'react-router'
     localStorage.userId='';
   }
   componentWillMount(){
-    // axios.request('http://api.duopingshidai.com/shopping/add',method:'post',h)
+    if(localStorage.user && localStorage.userId){
+      this.setState({user:localStorage.user,userId:localStorage.userId})
+    }
   }
   render() {
+    console.log(this.state.userId)
     const styles = {
       title: {
         cursor: 'pointer',
@@ -149,7 +148,7 @@ import {Link} from 'react-router'
       <div className='header'>
         <AppBar
           title={<span style={styles.title}>Tiger Shopping</span>}
-          iconElementLeft={<IconButton><Link to='/'><ActionHome /></Link></IconButton>}
+          iconElementLeft={<IconButton><Link to='/'><ActionHome style={{color:'#fff'}}/></Link></IconButton>}
           iconElementRight={
 
               this.state.user?
@@ -164,7 +163,7 @@ import {Link} from 'react-router'
                       <MenuItem value="1" primaryText={this.state.user} />
                       <Link to='pay'><MenuItem value="2" primaryText="个人中心" /></Link>
                       <Link to='add'><MenuItem value="2" primaryText="管理员操作" /></Link>
-                      <MenuItem value="3" primaryText="退出" />
+                      <MenuItem value="3" primaryText="退出" onTouchTap={this.logout.bind(this)}/>
                     </IconMenu>
 
                 :

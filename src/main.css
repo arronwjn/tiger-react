@@ -6,6 +6,7 @@
 
 .lunbo{
   position: relative;
+  margin: 0 auto 0;
 }
 .lunbo>ul>li{
   width: 790px;
@@ -15,10 +16,10 @@
 .content span{
   cursor: pointer;
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   float: left;
-  margin-left: 3px;
+  margin-left: 8px;
   text-align: center;
   background-color: rgba(0,0,0,0.4);
   text-decoration: none;
@@ -55,4 +56,53 @@
 }
 .btn-prev{
   left:0;
+}
+.content{
+  position: relative;
+}
+.tab{
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  position: absolute;
+  float: left;
+  width:170px;
+  height: 340px;
+  background-color: rgba(0,0,0,0.3);
+  left:0;
+  top:0;
+}
+.tab ul li{
+  list-style: none;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  color:#fff;
+}
+.card{
+  display: flex;
+  justify-content: center;
+  width: 790px;
+  height: 340px;
+  /*background-color: red;*/
+  margin-left: 169px;
+  border:1px solid #ff7144;
+}
+.card div:first-child{
+  margin-left: 10px;
+}
+.card div p a{
+  color:#000;
+  margin-left: 20px;
+  text-decoration: none;
+}
+.card-right{
+  flex-grow: 1;
+  margin-left: 15px;
+  background-color: #f4f4f4;
+  width: 200px;
+  height: 340px;
+}
+.card-right img{
+  margin-left: 15px;
+  margin-bottom: 15px;
 }
